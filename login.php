@@ -28,11 +28,55 @@
         }
 
         // TEMPORARY WHILE NO HAVE DATABASE CONNECTION
-        if(isset($_POST['username']) && isset($_POST['password']) && !empty($_POST['username']) && !empty($_POST['password'])){
-            header("location: welcome.php");
-            exit;
+        if(empty($usernameErr) && empty($passwordErr)){
+            // Select statement
+            $sql_query = "SELECT id, username, password FROM users WHERE username = :username";
+
+            if($stmt = $pdo->prepare($sql_query)){
+                // Bind variables
+                $stmt->bindParam(":username", $param_username, PDO::PARAM_STR);
+
+                // Set parameters
+                $param_username = trim($_POST['username']);
+
+                if($stmt->execute()){
+                    // Check username exist
+                    if($stmt->rowCount() == 1){
+                        if($row = $stmt->fetch()){
+                            $id = $row['id'];
+                            $username = $row['username'];
+                            $hashed_password = $row['password'];
+                            if(password_verify($password, $hashed_password)){
+                                // Password is correct, so start a new session
+                                session_start();
+
+                                // Save data in session variables
+                                $_SESSION["loggedin"] = true;
+                                $_SESSION["id"] = $id;
+                                $_SESSION["username"] = $username;
+
+                                header("location: welcome.php");
+                            }else{
+                                // Password is not valid.
+                                $loginErr = "Invalid password.";
+                            }
+                        }
+                    }else{
+                        // Username doesn't exist in database
+                        $loginErr = "Invalid username.";
+                    }
+                }else{
+
+                    echo "Please try again later.";
+                }
+
+                // Close statement
+                unset($stmt);
+            }
         }
 
+        // Close database connection
+        unset($pdo);
     }
 
 ?>
@@ -49,14 +93,31 @@
 <body>
     <div>
         <h2>Login</h2>
+
+        <?php 
+        if(!empty($loginErr)){ 
+            echo '<div>'. $loginErr .'</div>'; 
+        }
+        ?>
+
         <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
             <div>
                 <label>Username</label>
                 <input type="text" name="username" required />
+                <?php 
+                if(!empty($usernameErr)){ 
+                    echo '<div>'. $usernameErr .'</div>'; 
+                }
+                ?>
             </div>
             <div>
                 <label>Password</label>
                 <input type="password" name="password" required />
+                <?php 
+                if(!empty($passwordErr)){ 
+                    echo '<div>'. $passwordErr .'</div>'; 
+                }
+                ?>
             </div>
             <div>
                 <input type="submit" name="submitBtn" value="Login" />
