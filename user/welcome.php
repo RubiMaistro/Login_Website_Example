@@ -19,7 +19,7 @@
         <h1>Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to my website!</h1>
         <p>
             <a href="">Reset password</a>
-            <a href="">Log out</a>
+            <a href="logout.php">Log out</a>
         </p>
     </div>
 </body>
