@@ -12,8 +12,13 @@
         // Set the PDO error mode to exception
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }catch(PDOException $e){
-        die("ERROR: Could not connect. " . $e->getMessage());
-        require_once("createDB.php");
+        // Call the database creator and the table creator
+        if(require_once("create/createDB.php")){
+            if(!require_once("create/createTable.php")){
+                die("ERROR: Could not connect. " . $e->getMessage() ."<br />");
+            }
+        }
     }
+
 
 ?>

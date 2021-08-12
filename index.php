@@ -11,7 +11,7 @@
     <div>
         <h1>Front Website</h1>
             <p><b><a href="login.php">Login</a></b></p>
-            <p>Don't have an account? <a href="">Sign up now</a>.</p>
+            <p>Don't have an account? <a href="registration.php">Sign up now</a>.</p>
     </div>
     <div>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce risus sem, fringilla id felis vitae, condimentum faucibus leo. Aliquam varius massa ac condimentum rhoncus. Proin eleifend dolor augue, id fermentum nunc viverra imperdiet. Nullam dignissim vel nulla vel tincidunt. Suspendisse potenti. Pellentesque malesuada ut est nec aliquam. Praesent nec porta odio. Praesent odio nibh, placerat in volutpat nec, finibus eget leo. Sed fermentum orci ut rutrum fringilla. Donec felis odio, accumsan luctus pellentesque sit amet, scelerisque viverra diam. Phasellus euismod consequat risus, ac finibus nisi. Nulla a lacus velit. Ut lobortis purus ut nisl dapibus, non ultricies quam scelerisque.

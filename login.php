@@ -2,6 +2,9 @@
     // Initialize the session
     session_start();
 
+    // Connect to database
+    require_once("connect.php");
+
     // Define variables and initialize with empty values
     $username = $password = "";
     $usernameErr = $passwordErr = $loginErr = "";
@@ -58,7 +61,7 @@
             <div>
                 <input type="submit" name="submitBtn" value="Login" />
             </div>
-            <p>Don't have an account? <a href="">Sign up now</a>.</p>
+            <p>Don't have an account? <a href="registration.php">Sign up now</a>.</p>
         </form>
     </div>
 </body>
